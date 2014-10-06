@@ -41,8 +41,30 @@ feature "User adds a Launcher", %Q{
     expect(page).to have_content "Email can't be blank"
   end
 
-  scenario "email already in use"
+  scenario "email already in use" do
+    existing_launcher = FactoryGirl.create(:launcher)
+    new_launcher = FactoryGirl.build(:launcher)
 
-  scenario "bio is not long enough"
+    fill_in "First name", with: new_launcher.first_name
+    fill_in "Last name", with: new_launcher.last_name
+    fill_in "Email", with: existing_launcher.email
+    fill_in "Bio", with: new_launcher.bio
+    click_on "Create Launcher"
 
+    expect(page).to have_content "Oh no! Launcher could not be saved."
+    expect(page).to have_content "Email has already been taken"
+  end
+
+  scenario "bio is not long enough" do
+    launcher = FactoryGirl.build(:launcher)
+
+    fill_in "First name", with: launcher.first_name
+    fill_in "Last name", with: launcher.last_name
+    fill_in "Email", with: launcher.email
+    fill_in "Bio", with: "some short string"
+    click_on "Create Launcher"
+
+    expect(page).to have_content "Oh no! Launcher could not be saved."
+    expect(page).to have_content "Bio is too short (minimum is 50 characters)"
+  end
 end
