@@ -9,9 +9,13 @@ class LaunchersController < ApplicationController
 
   def create
     @launcher = Launcher.new(launcher_params)
-    @launcher.save
-    redirect_to launchers_path,
-      notice: "Success! The Launcher was added."
+    if @launcher.save
+      redirect_to launchers_path,
+        notice: "Success! The Launcher was added."
+    else
+      flash.now[:notice] = "Oh no! Launcher could not be saved."
+      render 'new'
+    end
   end
 
   private

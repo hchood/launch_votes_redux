@@ -13,11 +13,13 @@ feature "User adds a Launcher", %Q{
   # * Bio must be at least 50 characters long.
   # * If the email is not unique, I receive an error message.
 
-  scenario "with all required attributes" do
-    launcher = FactoryGirl.build(:launcher)
-
+  before :each do
     visit root_path
     click_on "Add a Launcher"
+  end
+
+  scenario "with all required attributes" do
+    launcher = FactoryGirl.build(:launcher)
 
     fill_in "First name", with: launcher.first_name
     fill_in "Last name", with: launcher.last_name
@@ -30,7 +32,14 @@ feature "User adds a Launcher", %Q{
     expect(page).to have_content launcher.last_name
   end
 
-  scenario "without all required attributes"
+  scenario "without all required attributes" do
+    click_on "Create Launcher"
+
+    expect(page).to have_content "Oh no! Launcher could not be saved."
+    expect(page).to have_content "First name can't be blank"
+    expect(page).to have_content "Last name can't be blank"
+    expect(page).to have_content "Email can't be blank"
+  end
 
   scenario "email already in use"
 
