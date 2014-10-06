@@ -33,6 +33,7 @@ group :development, :test do
   gem 'launchy'
   gem 'factory_girl_rails'
   gem 'shoulda'
+  gem 'valid_attribute'
 end
 
 # Use ActiveModel has_secure_password

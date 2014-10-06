@@ -4,5 +4,5 @@ class Launcher < ActiveRecord::Base
   validates :email,
     presence: true,
     uniqueness: true
-  validates :bio, length: { minimum: 50 }
+  validates :bio, length: { minimum: 50 }, allow_blank: true
 end

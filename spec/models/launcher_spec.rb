@@ -7,5 +7,7 @@ RSpec.describe Launcher, :type => :model do
   it { should validate_presence_of :last_name }
   it { should validate_presence_of :email }
   it { should validate_uniqueness_of :email }
-  it { should ensure_length_of(:bio).is_at_least(50) }
+
+  it { should have_valid(:bio).when("Best private detective in all the land. - Lucille B.", nil, "") }
+  it { should_not have_valid(:bio).when("some short string") }
 end

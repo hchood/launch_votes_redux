@@ -67,4 +67,17 @@ feature "User adds a Launcher", %Q{
     expect(page).to have_content "Oh no! Launcher could not be saved."
     expect(page).to have_content "Bio is too short (minimum is 50 characters)"
   end
+
+  scenario "without bio" do
+    launcher = FactoryGirl.build(:launcher)
+
+    fill_in "First name", with: launcher.first_name
+    fill_in "Last name", with: launcher.last_name
+    fill_in "Email", with: launcher.email
+    click_on "Create Launcher"
+
+    expect(page).to have_content "Success! The Launcher was added."
+    expect(page).to have_content launcher.first_name
+    expect(page).to have_content launcher.last_name
+  end
 end
