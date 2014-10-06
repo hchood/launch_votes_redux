@@ -1,0 +1,40 @@
+<h3>Add a Launcher:</h3>
+
+<%= form_for @launcher do |f| %>
+
+  <% if @launcher.errors.any? %>
+    <div>
+      <%= "#{@launcher.errors.count} messages prevented your record from being saved:" %>
+
+      <ul>
+        <% @launcher.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :bio %>
+    <%= f.text_area :bio %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
