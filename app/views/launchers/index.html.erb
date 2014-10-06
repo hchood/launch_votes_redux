@@ -1,0 +1,7 @@
+<h3>All Launchers</h3>
+
+<ul>
+  <% @launchers.each do |launcher| %>
+    <li><%= "#{launcher.first_name} #{launcher.last_name}" %></li>
+  <% end %>
+</ul>
